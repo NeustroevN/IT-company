@@ -1,0 +1,54 @@
+<!-- {% include "title.html" %} -->
+ <!--Заголовок формы-->
+ <!-- <div class="Title">
+    <div class="DataContainer">
+        <p class="TitleTxt"> О нас</p>
+    </div>
+</div> -->
+<!--Основные данные-->
+<!-- <div class="Main">
+    <div class="DataContainer">
+        {% for movie in info %}
+        <a class="BodyTxt">
+            {{ movie.description }}
+        </a> <br> -->
+       
+        <!-- <img class="ImgBody" src="/media/{{ movie.image }}" alt="logo"> -->
+                  
+        
+        <!-- {% endfor %}   
+         
+
+    </div>
+    
+</div> -->
+
+
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey"><b>О нас</b></span>
+      </h1>
+    </div>
+  </header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+  <!-- About Section -->
+  {% for about_us in info %}
+    <div class="w3-container w3-padding-32" id="about">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">О нас</h3>
+        <p>{{ about_us.description }}</p>
+    </div>
+    <div class="w3-container">
+        <img src="/media/{{ about_us.image }}" class="w3-image" style="width:100%">
+    </div>
+{% endfor %}  
+
+{% include "footer.html" %}

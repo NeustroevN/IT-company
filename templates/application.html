@@ -1,0 +1,61 @@
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey">Оставьте заявку</span>
+      </h1>
+    </div>
+  </header>
+
+  <!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+    <!-- Form section -->
+    {% block title %}{% endblock %}
+      {% block content %}  
+      <div class="w3-container w3-padding-32" id="contact">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Заполните поля и нажмите "Отправить"</h3>
+        <form method="post" action="/appform">
+          {% csrf_token %}
+          
+          <!-- <input class="w3-input w3-section w3-border" placeholder="Имя пользователя"> {{ form.username }}
+          <input class="w3-input w3-section w3-border"  placeholder="Пароль"> {{ form.password }} -->
+          
+
+          <label for="title">Тема обращения:</label>
+          <!-- <input class="w3-input w3-section w3-border"  required id = "{{ form.title }}"> 
+          <div class="w3-input w3-section w3-border">{{ form.title }}</div> -->
+          {{ form.title }}
+          
+          <label for="name">Ваше имя:</label>
+          {{ form.name }}
+          <!-- <input class="w3-input w3-section w3-border" required  {{ form.name }}> -->
+          
+          <label for="email">Email:</label>
+          <!-- <input class="w3-input w3-section w3-border" required  {{ form.email }}> -->
+          {{ form.email }}
+
+          <label for="company">Компания:</label>
+          <!-- <input class="w3-input w3-section w3-border" required  {{ form.company }}> -->
+          {{ form.company }}
+
+          <label for="phone">Телефон:</label>
+          <!-- <input class="w3-input w3-section w3-border" required  {{ form.phone }}> -->
+          {{ form.phone }}
+    
+          <label for="message">Ваше сообщение:</label>
+          <!-- <input class="w3-input w3-section w3-border" required  {{ form.message }}> -->
+          <p>{{ form.message }}</p>
+           
+          
+          <input class="w3-button w3-black w3-section" type="submit" value="ОТПРАВИТЬ">
+
+
+        </form>
+      </div>
+      {% endblock %}
+
+{% include "footer.html" %}

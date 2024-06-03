@@ -1,0 +1,27 @@
+        <!-- <ul>
+            {% load menubuilder %}
+            {% menu main_menu %}
+            {% for item in menuitems %}
+                <li {% if item.current %}class="active"{% endif %}>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}">{{ item.title }}</a>
+                </li>
+            {% endfor %}
+        </ul> -->
+
+        {% load menubuilder %}
+
+        {% menu main_menu %}
+
+        <!-- <div> 
+            {% for item in menuitems %}
+                 <a href="{{ item.url }}" title="{{ item.title|escape }}">|  {{ item.title }}</a>
+            {% endfor %}
+        </div> -->
+
+        <div class="w3-right w3-hide-small"> 
+            {% for item in menuitems %}
+                 <a href="{{ item.url }}" class="w3-bar-item w3-button" title="{{ item.title|escape }}">|  {{ item.title }}</a>
+            {% endfor %}
+        </div>
+
+

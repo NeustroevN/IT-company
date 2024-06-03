@@ -1,0 +1,163 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 120vh;
+	/* height: 120%; */
+	border: 1px solid black;
+}
+
+.MenuContainer{
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 5px solid black;
+    padding: 20px;
+}
+
+.Menu {
+	height: 10%;
+	background-color:rgb(255, 255, 255);
+	border: 1px solid black;
+}
+.Title {
+	height: 10%;
+	background-color:rgb(255, 255, 255);
+	border: 1px solid black;
+}
+
+.Main {
+	height: 40%;
+	background-color:rgb(255, 255, 255);
+	border: 1px solid black;
+}
+
+.Footer {
+	height: 40%;
+	background-color:rgb(255, 255, 255);
+	border: 1px solid black;
+}
+.ImgFooter {
+	height: 100%;
+}
+
+
+
+
+.DataContainer {
+	display: flex;
+	height: 100%;
+	width: 60%;
+	margin: auto;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+}
+
+.MenuLeft {
+	height: 100%;
+	width: 15%;
+	/* margin-left: 20px;      Отступ слева в пикселах */
+	margin: auto;
+	text-align: left;
+	border: 1px solid black;
+}
+
+.MenuCenter {
+	height: 100%;
+	width: 65%;
+	text-align: right;
+	margin-right: 5px;
+	border: 1px solid black;
+}
+
+.MenuRight {
+	height: 100%;
+	width: 20%;
+	 /* align-items: center; */
+	justify-content: center;
+	/* text-align: center; */
+	text-align: center;
+	margin: auto;
+	border: 1px solid black;
+}
+
+.FormFields{
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	line-height:15mm;
+}
+
+.BtnLogIn{
+	background-color: rgb(1, 75, 44);
+	text-align: center;
+	color: aliceblue;
+	font-size: 12px;
+
+	height: 30px;
+	width: 80%;
+	border-radius: 2mm;
+}
+
+.LogoTxt{
+	font-weight: bold;
+	font-size: 20px;
+	color: rgb(1, 75, 44);
+	font-weight: bold;
+}
+
+.TitleTxt{
+	font-weight: bold;
+	font-size: 40px;
+	text-align:center;
+	justify-content:center;
+}
+
+.BodyTxt{
+	/* font-weight: bold; */
+	font-size: 17px;
+	text-align:left;
+	justify-content:center;	
+}
+
+.ImgBody {
+	height: 100%;
+	width: auto;
+	float:none;
+}
+
+/*Стили для формы регистрации*/
+.formcontainer{
+	max-width: 500px;
+	margin: auto;
+	padding: 20px;
+	background-color: #fff;
+	/* border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+}
+
+input[type="submit"] {
+	background-color: #4CAF50;
+	color: #fff;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+  }
+  
+  input[type="submit"]:hover {
+	background-color: #45a049;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="message"],
+  input[type="password"] {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+  }

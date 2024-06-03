@@ -1,0 +1,57 @@
+<!-- {% include "title.html" %} -->
+ <!--Заголовок формы-->
+ <!-- <div class="Title">
+    <div class="DataContainer">
+        <p class="TitleTxt"> Контакты </p>
+    </div>
+</div> -->
+<!--Основные данные-->
+<!-- <div class="Main">
+    <div class="DataContainer">
+        {% for ourcontact in info %}
+            <a class="BodyTxt">
+                {{ ourcontact.contacts }}
+            </a> <br>
+            <img class="ImgBody" src="/media/{{ ourcontact.mapimg }}" alt="logo">
+        {% endfor %}  
+
+
+    </div>
+</div> -->
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey"><b>Наши контакты</b></span>
+      </h1>
+    </div>
+  </header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+     <!-- Our contact part -->
+    <div class="w3-content w3-container w3-padding-64">
+        <h3 class="w3-center">Наши контакты</h3>
+        <p class="w3-center"><em>Вы можете найти нас по адресу</em></p>
+    </div>
+    {% for ourcontact in info %}
+    <div class="w3-row w3-padding-32 w3-section">
+        <div class="w3-col m4 w3-container">
+          <img src="/media/{{ ourcontact.mapimg }}" class="w3-image w3-round" style="width:100%">
+        </div>
+        <div class="w3-col m8 w3-panel">
+          <div class="w3-large w3-margin-bottom">
+            <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> {{ ourcontact.contacts }}<br>
+            <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: +00 151515<br>
+            <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: mail@mail.com<br>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% include "footer.html" %}

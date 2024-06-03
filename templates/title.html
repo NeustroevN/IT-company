@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"/> -->
+    <link rel="stylesheet" href="{% static 'css/w3_style.css' %}" >
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- <script src="jsscript.js"></script> -->
+    <script src="{% static 'js/jsscript.js' %}"></script>
+    <title>IT компания</title>
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <!-- <a href="index.html" class="w3-bar-item w3-button"><b>IT</b> решения для вашей компании</a> -->
+      <a href="/index/" class="w3-bar-item w3-button">
+        <span class="w3-padding w3-black w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-black">Решения для вашего бизнеса</span>
+      </a>
+      {% include "menu.html" %}
+    </div>
+    
+    
+    <!-- Кнопки регистрации пользователя -->
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+        
+        <div class="w3-right w3-hide-small">
+            <!-- <h3>{{ user.username|default:'Войдите' }}</h3> -->
+            
+          {% if user.is_authenticated %}
+            <a class="w3-bar-item w3-button">{{ user.username|default:'Войдите' }}</ф>    
+            <a href="{% url 'logout' %}" class="w3-bar-item w3-button">Выйти</a>
+                      
+          {% else %}
+              <a href="{% url 'signup' %}" class="w3-bar-item w3-button">Регистрация</a>
+              <a href="{% url 'login' %}" class="w3-bar-item w3-button">Войти</a>
+          {% endif %}
+        </div>
+    </div>
+  </div>
+
+  
+

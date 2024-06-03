@@ -1,0 +1,41 @@
+
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey"><b>Услуги</b></span>
+      </h1>
+    </div>
+  </header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+  <!-- Services Section -->
+    <div class="w3-container w3-padding-32" id="service">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Наши услуги</h3>
+        <a href="/application/">
+        <p>Оставьте заявку и мы с вами свяжемся для уточнения деталей</p>
+        </a>
+    </div>
+    <div class="w3-row-padding w3-grayscale">
+        {% for our_services in our_service %}
+            <div class="w3-col l3 m6 w3-margin-bottom">
+              <a href="/application/">
+              <img src="/media/{{ our_services.image }}" style="width:100%">
+              </a>
+            <h3>{{ our_services.name }}</h3>
+            <p class="w3-opacity">{{ our_services.name }}</p>
+            <p>{{ our_services.description }}</p>
+          </div>
+        {% endfor %} 
+    </div>
+
+ 
+
+
+
+{% include "footer.html" %}

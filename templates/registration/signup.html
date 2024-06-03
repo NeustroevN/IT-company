@@ -1,0 +1,29 @@
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey">Решения для вашего бизнеса</span>
+      </h1>
+    </div>
+  </header>
+
+  <!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+    <!-- Form section -->
+    {% block title %}{% endblock %}
+      {% block content %}  
+      <div class="w3-container w3-padding-32" id="contact">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Форма регистрации нового пользователя</h3>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }} 
+          <input class="w3-button w3-black w3-section" type="submit" value="Зарегистрироваться">
+        </form>
+      </div>
+      {% endblock %}
+
+{% include "footer.html" %}
