@@ -1,42 +1,22 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django import template
-from .models import Menu
 from .models import AboutCompany
 from .models import Benefits
 from .models import Service
 from .models import Solution
-from .models import SolSpecs
-from .models import Specs
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
-from django.contrib.auth import authenticate,login,logout
-
-
-def geeks_view(request):
-    # create a dictionary to pass
-    # data to the template
-    context ={
-        "data":"Gfg is the best",
-        "list":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-    # return response with template and context
-    return render(request, "geeks.html", context)
-
-# def about_view(request):
-#     our_info = AboutCompany.objects.all() 
-#     return render(request, "about.html", {"info": our_info})
-
+from django.contrib.auth import logout
+from .forms import AplicationForm
 
 def index(request):
     benefits = Benefits.objects.all() 
     return render(request, "index.html", {"our_benefits": benefits})
 
 def about(request):
-     our_info = AboutCompany.objects.all() 
-     return render(request, "about.html", {"info": our_info})
+    our_info = AboutCompany.objects.all() 
+    return render(request, "about.html", {"info": our_info})
 def contact(request):
     our_info = AboutCompany.objects.all() 
     return render(request, "contact.html", {"info": our_info})
@@ -46,10 +26,6 @@ def service(request):
 def solution(request):
     our_solution = Solution.objects.all()
     return render(request, "solution.html", {"our_solution": our_solution})
-
-# def specification(request):
-#     specifics = Solution.objects.all()
-#     return render(request, "solution.html", {"our_solution": our_solution})
 
 def application(request):
     return render(request, "application.html")
@@ -68,7 +44,7 @@ class SignUp(CreateView):
     template_name = "registration/signup.html"
 
 
-from .forms import AplicationForm
+
 def application_view(request):
     form = AplicationForm()
     return render(request, 'application.html', {'form': form})
@@ -104,15 +80,4 @@ def purform(request):
                 pass 
     else: 
         form = UserPurchase() 
-    return render(request,'solution.html',{'form':form}) 
-
-# <!-- {% form.title = {{ sol.name }} %} -->
-
-# def about(request):
-# 	return HttpResponse('<h1>О нас</h1>')
-
-
-# def show_top_menu(request):
-#     menu_items = Menu.objects.all()
-#     return render(request, "menu.html")
-        
+    return render(request,'solution.html',{'form':form})        

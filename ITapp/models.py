@@ -63,8 +63,13 @@ class SolSpecs(models.Model):
 # ------------------------------------------------------------
 
 class Solution(models.Model):
-    """Готовые решения"""
-    name = models.CharField("Наименование", max_length=100)
+    """Готовые решения
+    attributes: name
+                desk
+                image
+        
+    """
+    name = models.CharField(verbose_name="Наименование", max_length=100)
     description = models.TextField("Описание")
     image = models.ImageField("Изображение", upload_to="img/")
     # solution_specifications = models.ManyToManyField(SolSpecs, verbose_name="Характеристика")
@@ -133,7 +138,8 @@ class Benefits (models.Model):
     image = models.ImageField("Банер", upload_to="img/")
     
     def __str__(self):
-        return self.title
+        return self.title 
+                
     class Meta:
         verbose_name = "Акции"
         verbose_name_plural = "Акция"
