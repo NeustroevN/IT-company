@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from starlette.config import Config
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
+# the path to the .env file
+CONFIG = Config(BASE_DIR / ".env")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,6 +87,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 
                 # Этот контекстный процессор следует добавить: 
                 # 'django.core.context_processors.request',
@@ -95,12 +110,25 @@ WSGI_APPLICATION = 'IT_company.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+    "ENGINE": "django.db.backends.postgresql",
+    # "HOST": CONFIG.get("DATABASE_HOST", cast=str, default="localhost"),
+    "HOST": "localhost",
+    "PORT": CONFIG.get("DATABASE_PORT", cast=int, default=5432),
+    "USER": CONFIG.get("DATABASE_USER", cast=str, default="postgres"),
+    "PASSWORD": CONFIG.get("DATABASE_PASS", cast=str),
+    "NAME": CONFIG.get("DATABASE_NAME", cast=str)
     }
 }
+# print(DATABASES)
 
 
 # Password validation
@@ -149,3 +177,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SITE_ID = 2

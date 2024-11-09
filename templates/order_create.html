@@ -1,0 +1,180 @@
+{% include "title.html" %}
+{% load static %}
+  <!-- Title -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="{% static 'img/titleImg2.jpg' %}" alt="IT решения" width="1500" height="200">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <span class="w3-padding w3-white w3-opacity-min"><b>IT</b></span>
+        <span class="w3-hide-small w3-text-light-grey"><b>Создание заказа</b></span>
+      </h1>
+    </div>
+    
+    <!-- Через сбер -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+     <!-- <script src="https://securecardpayment.ru/payment/docsite/assets/js/ipay.js"></script> -->
+     <script src="https://securecardpayment.ru/payment/modules/sbol-pay/sbol-pay.js"></script>
+     <!-- <script src="../../modules/sbol-pay/sbol-pay.js"></script> -->
+    <script>
+      var ipay = new IPAY({api_token: 'YRF3C5RFICWISEWFR6GJ'});
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.3/jquery.inputmask.js"></script>
+    
+    <script src="https://3dsec.sberbank.ru/payment/modules/sbol-pay/sbol-pay.js"></script>
+    <style type="text/css">
+      body {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 18px;
+        margin-top: 40px;
+      }
+    </style>
+
+<!-- Яндекс кассы -->
+<script src="https://kassa.yandex.ru/checkout-widget/v1/kassa.js"></script>
+<script>
+  document.getElementById('payment-button').onclick = function () {
+      // Опции для вызова виджета
+      var checkout = new window.YandexCheckout({
+          confirmation_token: 'confirmation-token', // Токен подтверждения платежа
+          return_url: 'http://example.com/return/', // URL для возврата после успешного платежа
+          error_callback: function (error) { console.log(error); }, // Обработчик ошибок
+          success_callback: function (order) { console.log(order); } // Обработчик успеха
+      });
+      
+      checkout.render();
+  };
+  </script>
+
+  
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+  <!-- Services Section -->
+    <div class="w3-container w3-padding-32" id="service">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Ваш заказ</h3>
+    </div>
+    <div class="w3-row-padding w3-grayscale">
+
+        <!-- { block content } -->
+        
+        
+            <h3>Детали заказа</h3>
+            <ul>
+                {% if cart %}
+                {% for item in cart.cartitem_set.all %}
+                <!-- { for item in cart } -->
+                    <li>
+                        {{ item.quantity }}x {{ item.solution.name }}
+                        <span>${{ item.total_price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Стоимость: {{ total_price }} Руб.</p>
+        
+        <form action="." method="post" class="order-form">
+            {{ form.as_p }}
+            <!-- <fieldset>
+              <legend>Выбирите способ опаты:</legend>
+              <div>
+                <input type="radio" id="card" name="pay" value="card" checked />
+                <label for="card">Оплатить картой</label>
+              </div>
+              <div>
+                <input type="radio" id="pay_after" name="pay" value="pay_after" />
+                <label for="pay_after">Оплатить после предоставления услуги</label>
+              </div>
+            </fieldset> -->
+
+            <p><input type="submit" value="Заказать" class="w3-button w3-black w3-section"></p>
+            
+            <a onclick="ipayCheckout({
+              amount:499.99,
+              currency:'RUB',
+              order_number:'',
+              description: 'А. С. Пушкин. Избранное (подарочное издание)'},
+              function(order) { showSuccessfulPurchase(order) },
+              function(order) { showFailurefulPurchase(order) })"
+               
+              class="w3-button w3-black w3-section">Сбер
+            </a>
+            
+            
+            
+            {% csrf_token %}
+
+            
+        </form>
+        
+        {% endif %}
+        <!-- { endblock } -->
+
+        
+        
+
+
+
+    </div>
+
+    <h1>Оплата с вводом номера телефона в модуле</h1>
+    <div id="container"></div>
+    
+    <h1>Оплата с вводом номера на странице продавца</h1>
+    <div class="row">
+      <div class="col-3">
+       <div class="form-group">
+         <label for="exampleInputEmail1">Номер телефона</label>
+         <input type="text" id="phone" class="form-control">
+       </div>  
+      </div>
+    </div>
+    <div id="container_with_phone"></div>
+    <script>
+      // Дожидаемся когда все DOM-элементы загрузятся
+      document.addEventListener("DOMContentLoaded", function() {
+        $('#phone').inputmask({"mask": "+7(999) 999-9999"});
+    
+        // Инициализация скрипта для оплаты с вводом номера телефона внутри модуля
+        var sbolWidget = new window.SbolPay({
+          // Селектор DOM-элемента на странице, куда будет добавлен виджет оплаты
+          selector: '#container',
+          // Индивидуальный  открытый ключ продавца
+          token: 'j5djbk3h86qv4k7jg40826abbp',
+          // Сумма платежа в копейках
+          amount: '123400',
+          // Название магазина для отображения в окне виджета
+          shopName: 'ООО «Промтовары»',
+          returnUrl: 'http://yandex.ru'
+        });
+    
+        // Инициализация скрипта для оплаты с вводом номера телефона на сайте продавца
+        // Переинциализируется при изменении номера телефона и если он полностью заполнен
+        $('#phone').on('input', function(e) {
+          var rawPhone = $(this).val().replace(/\D/g,'').slice(1);
+    
+          // Проверка на длину номера. Поддерживаемый формат 9123456789
+          if (rawPhone.length === 10) {
+            var sbolWidgetPhone = new window.SbolPay({
+              // Селектор DOM-элемента на странице, куда будет добавлен виджет оплаты
+              selector: '#container_with_phone',
+              // Индивидуальный  открытый ключ продавца
+              token: 'j5djbk3h86qv4k7jg40826abbp',
+              // Сумма платежа в копейках
+              amount: '123400',
+              phone: rawPhone,
+              // Название магазина для отображения в окне виджета
+              shopName: 'ООО «Промтовары»',
+              returnUrl: 'http://yandex.ru'
+            });
+          }
+        })
+      });
+    </script>
+
+
+{% include "footer.html" %}

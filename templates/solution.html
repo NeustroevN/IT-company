@@ -17,7 +17,7 @@
     <div class="w3-container w3-padding-32" id="service">
         <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Готовые решения</h3>
         <a href="/application/">
-        <p>Закажите готовое решение прямо сейчас</p>
+        <p>Закажите готовое решение прямо сейчас не откладывая</p>
         </a>
     </div>
     <div class="w3-row-padding w3-grayscale">
@@ -33,17 +33,31 @@
                 <p><input class="w3-button w3-black w3-section" action="/purform" type="submit" value="КУПИТЬ"></p> -->
                 {% block title %}{% endblock %}
                 {% block content %} 
-                <form method="post" action="/solution-save" ></form>
-                {% csrf_token %}
-                <h3>  {{ sol.name }}</h3>
+                <!-- <form method="post" action="/solution-save" >  -->
+                <!-- <form method="post" action="/purform" >  -->
                 
-                <p><input class="w3-input w3-section w3-border"  id = "title" name = "title" value="{{ sol.name }}" readonly></p>
+                <!--  csrf_token  -->
+                <h3>  {{ sol.name }} </h3>
+                
+                <!-- <p><input class="w3-input w3-section w3-border"  id = "title" name = "title" value="{{ sol.name }}" readonly></p> -->
 
                 <p class="w3-opacity">Цена: {{ sol.price }}</p>
                 <p>{{ sol.description }}</p>
-                <p><input class="w3-button w3-black w3-section" type="submit" value="КУПИТЬ"></p>
-                <!-- <p><button class="w3-button w3-black w3-section" type="submit" value="КУПИТЬ"></p> -->
+               
+                <p>
+                  <!-- <input class="w3-button w3-black w3-section" type="submit" value="КУПИТЬ"> -->
+                {% if user.is_authenticated %}   
+                <form action="{% url 'add_to_cart' sol.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="w3-button w3-black w3-section">Добавить в корзину</button>
                 </form>
+                {% else %}
+                  <a href="{% url 'application' %}" class="w3-button w3-black w3-section">Отправить заявку</a>
+                {% endif %}    
+                </p>  
+
+                <!-- <p><button class="w3-button w3-black w3-section" type="submit" value="КУПИТЬ"></p> -->
+                <!-- </form> -->
                 {% endblock %}
             </div>
         </div>  
