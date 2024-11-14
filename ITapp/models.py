@@ -155,14 +155,25 @@ class Purchases (models.Model):
     def __str__(self):
         return self.name
 
+class Addresses(models.Model):
+    """Адрес пользователя"""
+    created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    street = models.CharField(max_length=100, verbose_name='Улица')
+    home_number = models.CharField(max_length=50, verbose_name='Номер дома')
+    appartment = models.CharField(max_length=50, verbose_name='Номер квартиры')
+    city = models.CharField(max_length=100, verbose_name='Город')
+    postal_code = models.CharField(max_length=20, verbose_name='Индекс')
+    email = models.EmailField()
+    
+    class Meta:
+        verbose_name = "Адреса пользователей"
+        verbose_name_plural = "Адреса пользователей"
+    
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50, verbose_name='Имя')
-    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
-    email = models.EmailField()
-    address = models.CharField(max_length=250, verbose_name='Адрес')
-    postal_code = models.CharField(max_length=20, verbose_name='Индекс')
-    city = models.CharField(max_length=100, verbose_name='Город')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    address = models.ForeignKey(Addresses, on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False, verbose_name='Статус платежа')

@@ -14,8 +14,8 @@ from .forms import UserPurchase
 # from django.contrib import messages
 from .models import OrderItem
 from .forms import OrderCreateForm
-
-
+from .forms import UserAddressForm
+from .models import Order
 
 
 def index(request):
@@ -190,6 +190,8 @@ def remove_from_cart(request, solution_id):
     # return redirect('cart_detail')
     return redirect('solution')
 
+
+
 def order_create(request):
     # cart = Cart(request)
     
@@ -202,11 +204,19 @@ def order_create(request):
     else:
         total_price = sum(item.total_price() for item in cart.cartitem_set.all())
         if request.method == 'POST':
-            form = OrderCreateForm(request.POST)
+            form = UserAddressForm(request.POST)
+            formOrder = OrderCreateForm(request.POST)
+            # form = OrderCreateForm(request.POST)
             # form.pay
             if form.is_valid():
-                order = form.save()
-                 
+                adress = form.save()
+                # order = form.save()
+
+                Order.objects.create(user=request.user.id,
+                                    address=adress,
+                                    paid_type=formOrder)
+                order = formOrder
+
                 for item in cart.cartitem_set.all():
                     solution = get_object_or_404(Solution, id = item.solution_id)
                     price_of_solution = solution.price * item.quantity 
@@ -223,6 +233,8 @@ def order_create(request):
                 return render(request, 'order_created.html',
                             {'order': order})
         else:
-            form = OrderCreateForm
+            form = UserAddressForm 
+            formOrder = OrderCreateForm
+            # OrderCreateForm
         return render(request, 'order_create.html',
-                    {'cart': cart, 'form': form, 'total_price': total_price})
+                    {'cart': cart, 'form': form, 'formOrder': formOrder, 'total_price': total_price})

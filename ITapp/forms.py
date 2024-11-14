@@ -3,6 +3,7 @@ from django import forms
 from .models import UserApplication
 from .models import Purchases
 from .models import Order
+from .models import Addresses
 
 class AplicationForm(forms.ModelForm): 
     class Meta: 
@@ -14,10 +15,16 @@ class UserPurchase(forms.ModelForm):
         model = Purchases
         fields = "__all__"
 
+class UserAddressForm(forms.ModelForm):
+    class Meta:
+        model = Addresses
+        fields = ['street', 'home_number', 'appartment', 'city', 'postal_code', 'email']
+
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'paid_type']
+        fields = ['paid_type']
+        
         
         
 
